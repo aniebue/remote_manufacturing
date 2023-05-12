@@ -1,0 +1,94 @@
+{% include "templates/frontend/includes/header.html" %}
+
+{% load static %}
+
+
+
+<main id="main" class="main-box">
+
+    
+
+    <!-- ======= Contact Section ======= -->
+    <section class="page-content">
+      <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center">
+
+         
+          <div class="machine-bg2">
+
+            {% include "templates/frontend/includes/user-nav.html" %}
+
+            
+
+            <div class="row mt-10 mb-3 pt-40 page-white">
+              <div class="col-12 pb-20">
+                <div class="font-weight-bold text-center">Machine Alarm</div>
+              </div>
+              <div class="col-12 text-center">
+                {% for message in messages %}
+                  <div class="alert alert-success"> {{ message }} </div> 
+                  {% endfor  %}
+              </div>
+
+              <div class="col-12">
+                  <div class="row machine-alarm">
+                  <div class="col-12 alarm-post alert alert-warning">
+                      <div class="row">
+                        <div class="col-md-3 col-12 alarm-post-hr">
+                          <i class="fa fa-clock-o fa-2x"></i> Alarm Code 01
+                        </div>
+                        <div class="col-md-6 col-12 alarm-post-hr"> Motor Overheat: The inside temperature of the motor is higher than the specified temperature.</div>
+                        <div class="col-md-3 col-12">AC Serial Spindle A06B-6064</div>
+                      </div>
+                  </div>
+
+                  <div class="col-12 alarm-post alert alert-danger">
+                      <div class="row">
+                        <div class="col-md-3 col-12 alarm-post-hr">
+                          <i class="fa fa-clock-o fa-2x"></i> Alarm Code 5
+                        </div>
+                        <div class="col-md-6 col-12 alarm-post-hr">  DCOH: Alarm occurs when average regenerative discharge energy is too high.</div>
+                        <div class="col-md-3 col-12">AC Servo Amplifier A06B-6066</div>
+                      </div> 
+                  </div>
+
+                  <div class="col-12 alarm-post alert alert-warning">
+                      <div class="row">
+                        <div class="col-md-3 col-12 alarm-post-hr">
+                          <i class="fa fa-clock-o fa-2x"></i> Alarm Code 368
+                        </div>
+                        <div class="col-md-6 col-12 alarm-post-hr"> Control needs a software update.</div>
+                        <div class="col-md-3 col-12">Alpha Amplifier A06B-6096-H***</div>
+                      </div>  
+                  </div>
+
+                  <div class="col-12 alarm-post alert alert-danger">
+                      <div class="row">
+                        <div class="col-md-3 col-12 alarm-post-hr">
+                          <i class="fa fa-clock-o fa-2x"></i> Alarm Code 33
+                        </div>
+                        <div class="col-md-6 col-12 alarm-post-hr"> Insufficient DC link section charging.</div>
+                        <div class="col-md-3 col-12">AC Serial Spindle A06B-6064</div>
+                      </div> 
+                  </div>
+              </div>
+              </div>
+             
+            </div>
+
+    
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+
+
+{% include "templates/frontend/expert/includes/nav.html" %}
+{% include "templates/frontend/includes/footer-dashboard.html" %}

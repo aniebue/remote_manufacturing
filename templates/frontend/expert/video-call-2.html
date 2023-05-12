@@ -1,0 +1,64 @@
+{% include "templates/frontend/includes/header.html" %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+{% load static %}
+
+
+
+<main id="main" class="main-box-2 ">
+
+    
+
+    <!-- ======= Contact Section ======= -->
+    <section class="page-content ">
+      <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center ">
+
+         
+          <div class="machine-bg2 ">
+
+            <div class="row page-call">
+              <!-- <div class="col-12">
+                <img src="/static/frontend/images/Expert-calling.gif" class="img-fluid" width="100%">
+              </div> -->
+              {% if call_type == 'video_call' %}
+              <div class="video-box" id="video-box">
+                <video id="local-video" autoplay></video>&nbsp;
+                <video id="remote-video" autoplay></video>
+              </div>
+              <div class="call-status-bx">
+                <span id="call-status">Connecting.....</span>
+              </div>
+              {% else %}
+              <div class="video-box" id="video-box">
+                <div class="call-status-bx">
+                  <span style="font-size: 25px"><i class="fa fa-microphone" aria-hidden="true"></i></span><br />
+                  <span id="call-status">Connecting.....</span>
+                </div>
+                <audio id="local-video" autoplay></audio>&nbsp;
+                <audio id="remote-video" autoplay></audio>
+              </div>
+              {% endif %}
+
+              <div class="col-12 call-button text-center">
+                <span> <a title="End Call" class="btn btn-danger" onclick="endCall()" href="javascript:void(0);">End Call</a> </span>
+                  <!-- <span> <a title="Start Recording" class="btn btn-success" href=""><i class='fa fa-play'></i> Start Recording</a> </span> 
+                  <span> <a title="Stop Recording" class="btn btn-danger" href=""><i class='fa fa-stop'></i> Stop Recording</a> </span> -->
+              </div>
+          
+       
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <script>
+    const toUser = {{caller.id}};
+  </script>
+
+{% include "templates/frontend/expert/includes/nav.html" %}
+{% include "templates/frontend/includes/footer-dashboard.html" %}

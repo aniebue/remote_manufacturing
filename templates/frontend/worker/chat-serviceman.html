@@ -1,0 +1,181 @@
+{% include "templates/frontend/includes/header.html" %}
+
+{% load static %}
+
+
+
+<main id="main" class=" main-box">
+
+    
+
+    <!-- ======= Contact Section ======= -->
+    <section class="page-content">
+      <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center">
+
+         
+          <div class="machine-bg">
+
+          
+              {% include "templates/frontend/includes/user-nav.html" %}
+              
+
+
+            <div class="row page-header">
+                <div class="col-12 ">
+                  <div class="row">
+                    <div class="chat-header">
+                        <div class="row">
+                            <div class="col-lg-1 col-2 page-user-picture"><img src="/media/{{userchat.user_picture}}" ></div>
+                        <div class="col-lg-11 col-10 text-left page-name"> 
+                          <div class="row">
+                            <div class="col-md-9 col-sm-9 col-xs-12 pl-5">
+                              Serviceman - <span class="text-orange text-capitalize font-weight-bold">{{userchat.first_name}} {{userchat.last_name}}</span><br> <small class="text-danger font-weight-bold">Offline</small>
+                              
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12 chat-header-icon text-left">
+                              <a class="text-orange" href="/worker/video-call-2/{{userchat.id }}"><i class="fa fa-phone"></i></a>
+                              <a class="text-orange" href="/worker/video-call-2/{{userchat.id }}?video=1"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+
+
+            <div class="row">
+           
+                <div class="col-12 ">
+                  <div class="chatbox-page">
+                      <div class="col-12 request-img d-flex justify-content-start">
+                            {% for row in image %}
+                            <a href="/media/{{ row.image }}" data-lightbox="photos"><img class="img-fluid" src="/media/{{ row.image }}"></a>
+
+                            {% endfor %}
+                          </div>
+                          <div class="col-12 mt-20 pl-20">
+                            <span class="text-orange"><small>Subject</small></span><br>
+                            <span class="text-black">{{ req.subject }}</span>
+                          </div>
+
+                          <div class="col-12 mt-20 pl-20">
+                            <span class="text-orange"><small>Description</small></span><br>
+                            <span class="text-black">{{ req.description }}</span>
+                          </div>
+
+                          <div class="col-12 mt-20 pl-20">
+                            <small>
+                            <span class="text-black-700">{{ req.req_date|date:"D d M Y" }}</span> <strong>at</strong> <span class="text-black">{{ req.req_date|date:"H:i A" }}</span>
+                            </small>
+                          </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+                <div class="row">
+                  <div class="col-12">
+                      <div id="ajax-chat"></div>
+                  </div>
+                </div>
+
+
+               
+                <div class="row">
+                    <div class="col-md-3 col-12">
+                      <div class="pt-40">
+                        <form class="form-horizontal" action="/worker/request-status/{{ req.req_id }}" method="post">
+                          {% csrf_token %}
+                          <div class="btn-group btn-toggle"> 
+                            <input type="hidden" name="worker_status" value="Resolved">
+                          <span class="btn btn-xs btn-danger"  active>Pending</span>
+                          <button class="btn btn-xs btn-success" name="Resolved" value="resolved">Resolved</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="col-md-9 col-12">
+                          <form id="request-form" method="POST" action="/worker/chat-serviceman/{{ expert_id }}/{{ req.req_id }}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                          <div class="form-group">
+                          <div class="row">
+     
+                            <div class="col-md-10 col-12">
+                              <span class="error" style="color: #a80000;font-weight: bold;"></span>
+                              <div style="border: 1px solid #ccc; border-radius: 5px; padding: 1px; margin: 20px;">
+                                <textarea name="message" class="tinymce" id="mytextarea"></textarea>
+                              </div>
+                              
+                              <input type="hidden" name="req_id" class="form-control" value="{{ req.req_id }}" required>
+                            </div>
+                            <div class="col-md-2 col-12">
+                              <input class="btn btn-orange chat-btn font-weight-bold" type="submit" name="submit" value="Send" id="submit" />
+                            </div>
+                           
+                          </div>
+                          
+                        </div>
+                      </form>
+                    </div>
+                </div>
+              
+            </div>
+          
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  sendRequest();
+
+  function sendRequest(){
+      $.ajax({
+        type: "Get",
+        url: "/worker/ajax-serviceman-chat/{{ expert_id }}/{{ req.req_id }}",
+        success: 
+          function(data){
+             $('#ajax-chat').html(data);
+        },
+        complete: function() {
+       // Schedule the next request when the current one's complete
+       setInterval(sendRequest, 10000); // The interval set to 5 seconds
+     }
+    });
+  };
+});
+
+  $(document).ready(
+      $('#request-form').submit(function(e){
+        e.preventDefault();
+        var serializedData = $(this).serialize();
+
+        $.ajax({
+          type:"POST",
+          url: "/worker/ajax-post-serviceman-chat/{{ expert_id }}/{{ req.req_id }}",
+          data:  serializedData,
+          success: function(data){
+            document.getElementById("request-form").reset();
+            sendRequest();
+          }
+        });
+      })
+    );
+    </script>
+
+{% include "templates/frontend/worker/includes/nav.html" %}
+{% include "templates/frontend/includes/footer-dashboard.html" %}
