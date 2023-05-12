@@ -79,21 +79,8 @@ TEMPLATES = [
 ASGI_APPLICATION = 'cobot.asgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.getenv('DEVENGINE'),
-#         'NAME': 'cobot',
-#         'USER': os.getenv('DEVUSER'),
-#         'PASSWORD': os.getenv('DEVPASS'),
-#         'HOST': 'localhost',
-#         'OPTIONS': {
-#             'charset': 'utf8mb4',
-#         }
-#     }
-# }
+
 
 DATABASES = {
     'default': {
