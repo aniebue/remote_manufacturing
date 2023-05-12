@@ -98,7 +98,7 @@ ASGI_APPLICATION = 'cobot.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'remote_machine_main',
+        'NAME': 'machine_database',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
