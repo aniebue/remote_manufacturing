@@ -6,7 +6,7 @@ The first thing to do is to clone the repository:
 
 ```sh
 $ git clone https://github.com/aniebue/remote_manufacturing
-$ cd remote-machine
+$ cd remote_manufacturing
 ```
 
 Create a virtual environment to install dependencies in and activate it:
